@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!--<title th:text="${person.name} + ' ' +${person.surname}+ '' + ${person.fathername}"></title>-->
+    <title>Person</title>
+</head>
+<body>
+<span th:text="${person.id}"></span>
+<span th:text="${person.name}"></span>
+<span th:text="${person.surname}"></span>
+<span th:text="${person.fathername}"></span>
+<!--<span th:text="${person.birthday}"></span>-->
+<!--<span th:text="${person.deadday}"></span>-->
+
+    <form action="/person" method="post">
+        <input type="hidden" name="id" th:value="${person.id}">
+        <input type="text" name="name" th:value="${person.name}">
+        <input type="text" name="surname" th:value="${person.surname}">
+        <input type="text" name="fathername" th:value="${person.fathername}">
+        <input type="text" name="birthday" th:value="${person.birthday}">
+        <input type="text" name="deadDay" th:value="${person.deadDay}">
+    <button type="submit">EDIT</button>
+    </form>
+
+    <div style="text-align: center;">
+    <a href="/">Main page</a>
+    </div>
+
+</body>
+</html>
