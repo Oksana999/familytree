@@ -1,6 +1,5 @@
 package com.oksana.familytree.entity;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,5 +21,5 @@ public class PersonRelation {
     @ManyToOne
     private Person child;
 
-    private Relation relation;
+    private RelationType relation;
 }

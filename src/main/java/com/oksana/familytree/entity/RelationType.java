@@ -1,12 +1,12 @@
 package com.oksana.familytree.entity;
 
-public enum Relation {
-    PARENT_CHILD(1),
-    MARRIAGE(2);
+public enum RelationType {
+    PARENT_CHILD(0),
+    MARRIAGE(1);
 
     private final int code;
 
-    Relation(int code) {
+    RelationType(int code) {
         this.code = code;
     }
 
