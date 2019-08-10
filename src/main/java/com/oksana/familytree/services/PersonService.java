@@ -1,18 +1,24 @@
 package com.oksana.familytree.services;
 
 import com.oksana.familytree.entity.Person;
+import com.oksana.familytree.entity.PersonRelation;
+import com.oksana.familytree.repositories.PersonRelationRepository;
 import com.oksana.familytree.repositories.PersonRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class PersonService {
 
     private final PersonRepository personRepository;
+    private final PersonRelationRepository personRelationRepository;
+    private final PersonRelationService personRelationService;
 
     public Person createOrUpdate(Long id, String name, String surname, String fathername,
                                  LocalDateTime birthday, LocalDateTime deadDay) {

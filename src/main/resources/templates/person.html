@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <link rel="stylesheet" type="text/css" href="../static/styles.css"/>
     <meta charset="UTF-8">
     <!--<title th:text="${person.name} + ' ' +${person.surname}+ '' + ${person.fathername}"></title>-->
     <title>Person</title>
@@ -22,6 +23,62 @@
         <input type="text" name="deadDay" th:value="${person.deadDay}">
     <button type="submit">EDIT</button>
     </form>
+
+<h2>Parents:</h2>
+<table class="table">
+    <thead>
+    <tr>
+        <th> Id</th>
+        <th> Name </th>
+        <th> Surname </th>
+        <th> Fathername </th>
+        <th> Birthday </th>
+        <th> Deadday </th>
+        <th> Edit </th>
+        <th> Delete </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="parent : ${parents}">
+        <td><span th:text="${parent.getId()}">Id </span></td>
+        <td><span th:text="${parent.getName()}">Name </span></td>
+        <td><span th:text="${parent.getSurname()}">Surname </span></td>
+        <td><span th:text="${parent.getFathername()}">Fathername </span></td>
+        <td><span th:text="${parent.getBirthday()}">Birthday </span></td>
+        <td><span th:text="${parent.getDeadDay()}">Deadday </span></td>
+        <td><a th:href="${'/person/' + parent.getId()}">Edit parent</a></td>
+        <td><a th:href="${'/person/' + parent.getId() + '/delete'}">delete parent</a></td>
+    </tr>
+    </tbody>
+</table>
+<h2>Children:</h2>
+<table class="table">
+    <thead>
+    <tr>
+        <th> Id</th>
+        <th> Name </th>
+        <th> Surname </th>
+        <th> Fathername </th>
+        <th> Birthday </th>
+        <th> Deadday </th>
+        <th> Edit </th>
+        <th> Delete </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="child : ${children}">
+        <td><span th:text="${child.getId()}">Id </span></td>
+        <td><span th:text="${child.getName()}">Name </span></td>
+        <td><span th:text="${child.getSurname()}">Surname </span></td>
+        <td><span th:text="${child.getFathername()}">Fathername </span></td>
+        <td><span th:text="${child.getBirthday()}">Birthday </span></td>
+        <td><span th:text="${child.getDeadDay()}">Deadday </span></td>
+        <td><a th:href="${'/person/' + child.getId()}">Edit child</a></td>
+        <td><a th:href="${'/person/' + child.getId() + '/delete'}">delete child</a></td>
+    </tr>
+    </tbody>
+</table>
+
 
     <div style="text-align: center;">
     <a href="/">Main page</a>
