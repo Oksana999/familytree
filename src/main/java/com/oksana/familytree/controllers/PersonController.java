@@ -56,6 +56,10 @@ public class PersonController {
         model.addAttribute("person", person);
         model.addAttribute("parents", parents);
         model.addAttribute("children", children);
+
+        List<Person> persons = this.personService.findAll();
+        model.addAttribute("persons", persons);
+
         return "person";
     }
 

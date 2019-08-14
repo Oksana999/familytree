@@ -14,29 +14,34 @@
 <!--<span th:text="${person.birthday}"></span>-->
 <!--<span th:text="${person.deadday}"></span>-->
 
-    <form action="/person" method="post">
-        <input type="hidden" name="id" th:value="${person.id}">
-        <input type="text" name="name" th:value="${person.name}">
-        <input type="text" name="surname" th:value="${person.surname}">
-        <input type="text" name="fathername" th:value="${person.fathername}">
-        <input type="text" name="birthday" th:value="${person.birthday}">
-        <input type="text" name="deadDay" th:value="${person.deadDay}">
+<form action="/person" method="post">
+    <input type="hidden" name="id" th:value="${person.id}">
+    <input type="text" name="name" th:value="${person.name}">
+    <input type="text" name="surname" th:value="${person.surname}">
+    <input type="text" name="fathername" th:value="${person.fathername}">
+    <input type="text" name="birthday" th:value="${person.birthday}">
+    <input type="text" name="deadDay" th:value="${person.deadDay}">
 
-<br>
-        <p>Select gender:</p>
-        <input type="radio" name="gender" value="true" th:checked="${person.gender}"> Male<br>
-        <input type="radio" name="gender" value="false" th:checked="${!person.gender}"> Female<br>
+    <br>
+    <p>Select gender:</p>
+    <input type="radio" name="gender" value="true" th:checked="${person.gender}"> Male<br>
+    <input type="radio" name="gender" value="false" th:checked="${!person.gender}"> Female<br>
 
     <button type="submit">EDIT</button>
-    </form>
+</form>
 <hr>
 
 <form action="/relation" method="post">
     <input type="hidden" name="personId" th:value="${person.id}">
-    <label for="relation_person"></label>
-    <input id="relation_person" name="relationId">
+    <select name="relationId">
+        <option th:each="relationPerson : ${persons}"
+                th:value="${relationPerson.id}"
+                th:text="${relationPerson.id}+ ' - ' + ${relationPerson.surname + ' ' + relationPerson.name + ' '  + relationPerson.fathername}">
+        </option>
+    </select>
+
     <div>
-        <label for="relationType" >Relation type:</label><br>
+        <label for="relationType">Relation type:</label><br>
         <input type="radio" name="relationType" value="1" id="relationType">Marriage<br>
         <input type="radio" name="relationType" value="0" checked>Parent_Child<br>
     </div>
@@ -50,13 +55,13 @@
     <thead>
     <tr>
         <th> Id</th>
-        <th> Name </th>
-        <th> Surname </th>
-        <th> Fathername </th>
-        <th> Birthday </th>
-        <th> Deadday </th>
-        <th> Edit </th>
-        <th> Delete </th>
+        <th> Name</th>
+        <th> Surname</th>
+        <th> Fathername</th>
+        <th> Birthday</th>
+        <th> Deadday</th>
+        <th> Edit</th>
+        <th> Delete</th>
     </tr>
     </thead>
     <tbody>
@@ -77,13 +82,13 @@
     <thead>
     <tr>
         <th> Id</th>
-        <th> Name </th>
-        <th> Surname </th>
-        <th> Fathername </th>
-        <th> Birthday </th>
-        <th> Deadday </th>
-        <th> Edit </th>
-        <th> Delete </th>
+        <th> Name</th>
+        <th> Surname</th>
+        <th> Fathername</th>
+        <th> Birthday</th>
+        <th> Deadday</th>
+        <th> Edit</th>
+        <th> Delete</th>
     </tr>
     </thead>
     <tbody>
@@ -101,9 +106,9 @@
 </table>
 
 
-    <div style="text-align: center;">
+<div style="text-align: center;">
     <a href="/">Main page</a>
-    </div>
+</div>
 
 </body>
 </html>
