@@ -10,6 +10,16 @@ public enum RelationType {
         this.code = code;
     }
 
+    public static RelationType of(int relationType) {
+        switch (relationType) {
+            case 0 :
+                return PARENT_CHILD;
+            case 1:
+                return MARRIAGE;
+        }
+        throw new IllegalArgumentException(String.valueOf(relationType));
+    }
+
     public int getCode() {
         return code;
     }

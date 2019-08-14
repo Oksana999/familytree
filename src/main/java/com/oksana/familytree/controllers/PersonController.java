@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class PersonController {
     private final PersonService personService;
     private final PersonRelationService personRelationService;
 
-    @RequestMapping(method = GET)
+    @RequestMapping(value = "/", method = GET)
     public String persons(Model model) {
         List<Person> persons = this.personService.findAll();
         model.addAttribute("persons", persons);
@@ -32,23 +33,20 @@ public class PersonController {
     }
 
     @RequestMapping(value = "person", method = POST)
-    public String createOrUpdate(Long id, String name, String surname, String fathername,
+    public String createOrUpdate(Long id, String name, String surname, String fathername, boolean gender,
             /*LocalDateTime birthday, LocalDateTime deadDay,*/ Model model) {
-        Person person = this.personService.createOrUpdate(id, name, surname, fathername, LocalDateTime.now().minusYears(20L), null);
-        model.addAttribute(person);
-        return "person";
+        Person person = this.personService.createOrUpdate(id, name, surname, fathername, LocalDateTime.now().minusYears(20L), null, gender);
+        return getById(person.getId(), model);
     }
 
-    @RequestMapping(value = "person/{id}", method = GET)
-    public String getByFIO(@PathVariable Long id, Model model) {
-       Person person = this.personService.findById(id);
+    @RequestMapping(value = "/person/{id}", method = GET)
+    public String getById(@PathVariable Long id, Model model) {
+        Person person = this.personService.findById(id);
         List<PersonRelation> relationsParents = person.getRelationsParent();
         List<Person> children = new ArrayList<>();
         for (PersonRelation relationsParent : relationsParents) {
             children.add(relationsParent.getChild());
         }
-
-
         List<Person> parents = new ArrayList<>();
         List<PersonRelation> relationsChild = person.getRelationsChild();
         for (PersonRelation personRelation : relationsChild) {
@@ -68,17 +66,20 @@ public class PersonController {
         return persons(model);
     }
 
-
-    @RequestMapping(value = "r/pc/{id}/{id2}", method = GET)
-    public String relationParentChild(@PathVariable Long id, @PathVariable Long id2, Model model) {
-        personRelationService.createRelation(id, id2, RelationType.PARENT_CHILD);
-        return persons(model);
+    @RequestMapping(value = "/relation", method = POST)
+    public String getParents(Long personId, Long relationId, int relationType, Model model) {
+        this.personRelationService.createRelation(personId, relationId, RelationType.of(relationType));
+        return getById(personId, model);
     }
 
-    @RequestMapping(value = "r/m/{id}/{id2}", method = GET)
-    public String relationMarriage(@PathVariable Long id, @PathVariable Long id2, Model model) {
-        personRelationService.createRelation(id, id2, RelationType.MARRIAGE);
-        return persons(model);
+    @RequestMapping(method = GET)
+    public @ResponseBody String g404() {
+        return "404 not found. GET";
+    }
+
+    @RequestMapping(method = POST)
+    public @ResponseBody String p404() {
+        return "404 not found. POST";
     }
 
 }

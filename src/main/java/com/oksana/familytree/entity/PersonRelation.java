@@ -22,4 +22,6 @@ public class PersonRelation {
     private Person child;
 
     private RelationType relation;
+
+
 }

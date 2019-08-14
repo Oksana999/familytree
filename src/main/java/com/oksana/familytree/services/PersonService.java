@@ -21,13 +21,14 @@ public class PersonService {
     private final PersonRelationService personRelationService;
 
     public Person createOrUpdate(Long id, String name, String surname, String fathername,
-                                 LocalDateTime birthday, LocalDateTime deadDay) {
+                                 LocalDateTime birthday, LocalDateTime deadDay, boolean gender) {
         Person person = (id != null) ? personRepository.getOne(id) : new Person();
         person.setName(name);
         person.setSurname(surname);
         person.setFathername(fathername);
         person.setBirthday(birthday);
         person.setDeadDay(deadDay);
+        person.setGender(gender);
         return this.personRepository.save(person);
     }
 

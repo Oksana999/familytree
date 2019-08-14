@@ -24,6 +24,9 @@ public class Person {
     @Column(name = "dead_day", nullable = true)
     private LocalDateTime deadDay;
 
+    private Boolean gender;
+    // man -> true; female -> false
+
 
     @OneToMany(mappedBy = "parent")
     private List<PersonRelation> relationsParent = new ArrayList<>();

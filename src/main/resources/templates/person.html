@@ -21,8 +21,29 @@
         <input type="text" name="fathername" th:value="${person.fathername}">
         <input type="text" name="birthday" th:value="${person.birthday}">
         <input type="text" name="deadDay" th:value="${person.deadDay}">
+
+<br>
+        <p>Select gender:</p>
+        <input type="radio" name="gender" value="true" th:checked="${person.gender}"> Male<br>
+        <input type="radio" name="gender" value="false" th:checked="${!person.gender}"> Female<br>
+
     <button type="submit">EDIT</button>
     </form>
+<hr>
+
+<form action="/relation" method="post">
+    <input type="hidden" name="personId" th:value="${person.id}">
+    <label for="relation_person"></label>
+    <input id="relation_person" name="relationId">
+    <div>
+        <label for="relationType" >Relation type:</label><br>
+        <input type="radio" name="relationType" value="1" id="relationType">Marriage<br>
+        <input type="radio" name="relationType" value="0" checked>Parent_Child<br>
+    </div>
+    <button>Add</button>
+</form>
+<hr>
+
 
 <h2>Parents:</h2>
 <table class="table">
