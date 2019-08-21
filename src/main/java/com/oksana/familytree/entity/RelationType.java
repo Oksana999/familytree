@@ -20,7 +20,7 @@ public enum RelationType {
         throw new IllegalArgumentException(String.valueOf(relationType));
     }
 
-    public int getCode() {
+    public int getCode(int i) {
         return code;
     }
 }

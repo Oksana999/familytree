@@ -2,8 +2,10 @@ package com.oksana.familytree.services;
 
 import com.oksana.familytree.entity.Person;
 import com.oksana.familytree.entity.PersonRelation;
+import com.oksana.familytree.entity.Photo;
 import com.oksana.familytree.repositories.PersonRelationRepository;
 import com.oksana.familytree.repositories.PersonRepository;
+import com.oksana.familytree.repositories.PhotoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +19,6 @@ import java.util.stream.Collectors;
 public class PersonService {
 
     private final PersonRepository personRepository;
-    private final PersonRelationRepository personRelationRepository;
-    private final PersonRelationService personRelationService;
 
     public Person createOrUpdate(Long id, String name, String surname, String fathername,
                                  LocalDateTime birthday, LocalDateTime deadDay, boolean gender) {

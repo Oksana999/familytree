@@ -31,6 +31,8 @@
 </form>
 <hr>
 
+<a th:href="'/person/'+${person.getId()}+'/photos'">Photos</a>
+
 <form action="/relation" method="post">
     <input type="hidden" name="personId" th:value="${person.id}">
     <select name="relationId">
@@ -48,6 +50,62 @@
     <button>Add</button>
 </form>
 <hr>
+
+<h2>Husband</h2>
+<table class="table">
+    <thead>
+    <tr>
+        <th> Id</th>
+        <th> Name</th>
+        <th> Surname</th>
+        <th> Fathername</th>
+        <th> Birthday</th>
+        <th> Deadday</th>
+        <th> Edit</th>
+        <th> Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="husband : ${husbands}">
+        <td><span th:text="${husband.getId()}">Id </span></td>
+        <td><span th:text="${husband.getName()}">Name </span></td>
+        <td><span th:text="${husband.getSurname()}">Surname </span></td>
+        <td><span th:text="${husband.getFathername()}">Fathername </span></td>
+        <td><span th:text="${husband.getBirthday()}">Birthday </span></td>
+        <td><span th:text="${husband.getDeadDay()}">Deadday </span></td>
+        <td><a th:href="${'/person/' + husband.getId()}">Edit parent</a></td>
+        <td><a th:href="${'/person/' + husband.getId() + '/delete'}">delete husband</a></td>
+    </tr>
+    </tbody>
+</table>
+
+<h2>Wife</h2>
+<table class="table">
+    <thead>
+    <tr>
+        <th> Id</th>
+        <th> Name</th>
+        <th> Surname</th>
+        <th> Fathername</th>
+        <th> Birthday</th>
+        <th> Deadday</th>
+        <th> Edit</th>
+        <th> Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="wife: ${wives}">
+        <td><span th:text="${wife.getId()}">Id </span></td>
+        <td><span th:text="${wife.getName()}">Name </span></td>
+        <td><span th:text="${wife.getSurname()}">Surname </span></td>
+        <td><span th:text="${wife.getFathername()}">Fathername </span></td>
+        <td><span th:text="${wife.getBirthday()}">Birthday </span></td>
+        <td><span th:text="${wife.getDeadDay()}">Deadday </span></td>
+        <td><a th:href="${'/person/' + wife.getId()}">Edit parent</a></td>
+        <td><a th:href="${'/person/' + wife.getId() + '/delete'}">delete wife</a></td>
+    </tr>
+    </tbody>
+</table>
 
 
 <h2>Parents:</h2>

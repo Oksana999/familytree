@@ -33,4 +33,8 @@ public class Person {
     @OneToMany(mappedBy = "child")
     private List<PersonRelation> relationsChild = new ArrayList<>();
 
+    @ManyToMany(mappedBy = "persons")
+    private List<Photo> photos = new ArrayList<>();
+
+
 }

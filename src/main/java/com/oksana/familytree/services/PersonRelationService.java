@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -20,7 +19,7 @@ public class PersonRelationService {
     private final PersonRepository personRepository;
 
 
-    public PersonRelation createRelation(Long id1, Long id2, RelationType relation) {
+    public void createRelation(Long id1, Long id2, RelationType relation) {
         PersonRelation personRelation = new PersonRelation();
 
         Person two = this.personRepository.getOne(id2);
@@ -41,30 +40,43 @@ public class PersonRelationService {
             personRelation.setParent(one);
             personRelation.setChild(two);
         }
-
-
         personRelation.setRelation(relation);
         this.personRelationRepository.save(personRelation);
-        return personRelation;
     }
 
     public List<Person> parentRelations(Long id) {
+        return getChildRelation(id, RelationType.PARENT_CHILD);
+    }
+
+    public List<Person> husbands(Long id) {
+        return getChildRelation(id, RelationType.MARRIAGE);
+    }
+
+    public List<Person> childRelation(Long id) {
+        return geParentRelation(id, RelationType.PARENT_CHILD);
+    }
+
+    public List<Person> wives(Long id) {
+        return geParentRelation(id, RelationType.MARRIAGE);
+    }
+
+    private List<Person> geParentRelation(Long id, RelationType parentChild) {
         Person person = this.personRepository.findById(id).orElseThrow(() -> new RuntimeException("Person was not found"));
         List<Person> parentPersons = new ArrayList<>();
-        List<PersonRelation> parents = this.personRelationRepository.findAllByParent(person);
+        List<PersonRelation> parents = this.personRelationRepository.findAllByParentAndRelation(person, parentChild);
         for (PersonRelation p : parents) {
-            Person parent = p.getParent();
+            Person parent = p.getChild();
             parentPersons.add(parent);
         }
         return parentPersons;
     }
 
-    public List<Person> childRelation(Long id) {
+    private List<Person> getChildRelation(Long id, RelationType parentChild) {
         Person person = this.personRepository.findById(id).orElseThrow(() -> new RuntimeException("Person was not found"));
         List<Person> childPersons = new ArrayList<>();
-        List<PersonRelation> children = this.personRelationRepository.findAllByChild(person);
+        List<PersonRelation> children = this.personRelationRepository.findAllByChildAndRelation(person, parentChild);
         for (PersonRelation c : children) {
-            Person child = c.getChild();
+            Person child = c.getParent();
             childPersons.add(child);
         }
         return childPersons;

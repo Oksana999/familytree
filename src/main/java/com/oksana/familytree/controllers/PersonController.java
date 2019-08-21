@@ -42,20 +42,17 @@ public class PersonController {
     @RequestMapping(value = "/person/{id}", method = GET)
     public String getById(@PathVariable Long id, Model model) {
         Person person = this.personService.findById(id);
-        List<PersonRelation> relationsParents = person.getRelationsParent();
-        List<Person> children = new ArrayList<>();
-        for (PersonRelation relationsParent : relationsParents) {
-            children.add(relationsParent.getChild());
-        }
-        List<Person> parents = new ArrayList<>();
-        List<PersonRelation> relationsChild = person.getRelationsChild();
-        for (PersonRelation personRelation : relationsChild) {
-            parents.add(personRelation.getParent());
-        }
+
+        List<Person> husbands = this.personRelationService.husbands(person.getId());
+        List<Person> wives = this.personRelationService.wives(person.getId());
+        List<Person> parents = this.personRelationService.parentRelations(person.getId());
+        List<Person> children = this.personRelationService.childRelation(person.getId());
 
         model.addAttribute("person", person);
         model.addAttribute("parents", parents);
         model.addAttribute("children", children);
+        model.addAttribute("husbands", husbands);
+        model.addAttribute("wives", wives);
 
         List<Person> persons = this.personService.findAll();
         model.addAttribute("persons", persons);
