@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -38,10 +39,14 @@ public class PersonController {
 
     @RequestMapping(value = "person", method = POST)
     public String createOrUpdate(Long id, String name, String surname, String fathername, boolean gender,
-                                 LocalDateTime birthday,
-                                 LocalDateTime deadDay,
+                                 String birthday,
+                                 String deadDay,
                                  Model model) {
-        Person person = this.personService.createOrUpdate(id, name, surname, fathername ,birthday, deadDay, gender);
+        LocalDateTime deadday = null;
+        if (!StringUtils.isEmpty(deadDay)) {
+            deadday = LocalDateTime.parse(deadDay);
+        }
+        Person person = this.personService.createOrUpdate(id, name, surname, fathername ,LocalDateTime.parse(birthday), deadday, gender);
         return getById(person.getId(), model);
     }
 
