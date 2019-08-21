@@ -11,16 +11,16 @@
 <span th:text="${person.name}"></span>
 <span th:text="${person.surname}"></span>
 <span th:text="${person.fathername}"></span>
-<!--<span th:text="${person.birthday}"></span>-->
-<!--<span th:text="${person.deadday}"></span>-->
+<span th:text="${person.birthday}"></span>
+<span th:text="${person.deadDay}"></span>
 
 <form action="/person" method="post">
     <input type="hidden" name="id" th:value="${person.id}">
     <input type="text" name="name" th:value="${person.name}">
     <input type="text" name="surname" th:value="${person.surname}">
     <input type="text" name="fathername" th:value="${person.fathername}">
-    <input type="text" name="birthday" th:value="${person.birthday}">
-    <input type="text" name="deadDay" th:value="${person.deadDay}">
+    <input type="datetime-local" name="birthday" th:value="${person.birthday}">
+    <input type="datetime-local" name="deadDay" th:value="${person.deadDay}">
 
     <br>
     <p>Select gender:</p>

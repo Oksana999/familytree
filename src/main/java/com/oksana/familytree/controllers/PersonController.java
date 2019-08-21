@@ -1,11 +1,14 @@
 package com.oksana.familytree.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oksana.familytree.entity.Person;
 import com.oksana.familytree.entity.PersonRelation;
 import com.oksana.familytree.entity.RelationType;
 import com.oksana.familytree.services.PersonRelationService;
 import com.oksana.familytree.services.PersonService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -34,8 +38,10 @@ public class PersonController {
 
     @RequestMapping(value = "person", method = POST)
     public String createOrUpdate(Long id, String name, String surname, String fathername, boolean gender,
-            /*LocalDateTime birthday, LocalDateTime deadDay,*/ Model model) {
-        Person person = this.personService.createOrUpdate(id, name, surname, fathername, LocalDateTime.now().minusYears(20L), null, gender);
+                                 LocalDateTime birthday,
+                                 LocalDateTime deadDay,
+                                 Model model) {
+        Person person = this.personService.createOrUpdate(id, name, surname, fathername ,birthday, deadDay, gender);
         return getById(person.getId(), model);
     }
 
